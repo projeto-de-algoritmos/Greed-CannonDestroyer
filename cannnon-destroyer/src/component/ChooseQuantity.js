@@ -1,11 +1,19 @@
 import { Button, Text, HStack  } from "@chakra-ui/react";
 
-function ChooseQuantity({value, setValue}) {
+function ChooseQuantity({value, setValue, total, setTotal, weight, max}) {
   const inc = () => {
-    if (value > 0) setValue(value - 1);
+    if (value > 0) {
+      setTotal( total - weight);
+      setValue(value - 1);
+    }
   };
   const dec = () => {
-    if (value < 10) setValue(value + 1);
+    if (weight + total <=max){
+      setTotal(weight + total);
+      setValue(value + 1); 
+      
+    
+    } 
   };
 
   return (

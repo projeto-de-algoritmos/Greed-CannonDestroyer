@@ -11,12 +11,12 @@ export default class Knapsack {
     this.getSpecificValues();
   }
   getMaxValue() {
-    this.maxWeight = Math.ceil(Math.random() * (100 - 2) + 2);
+    this.maxWeight = Math.ceil(Math.random() * (100 - 10) + 10);
   }
   getWeights() {
     for (var i = 0; i < 3; i++)
       this.weights.push(
-        Math.ceil(Math.random() * (this.maxWeight / 2 - 1) + 1)
+        Math.ceil(Math.random() * (this.maxWeight / 2 - 10) + 10)
       );
   }
   getValues() {
@@ -25,20 +25,19 @@ export default class Knapsack {
   }
   getSpecificValues() {
     for (var i = 0; i < 3; i++)
-      this.specifyValue.push(Math.floor(this.values[i] / this.weights[i]));
+      this.specifyValue.push(this.values[i] / this.weights[i]);
   }
   getAnswer() {
-    let orderedArray = this.specifyValue.sort((a, b) => b - a);
-    console.log(orderedArray);
+    let orderedArray = this.specifyValue.slice();
+    orderedArray.sort((a, b) => b - a);
     let sumWeight = 0;
     orderedArray.forEach((item) => {
       var position = this.specifyValue.indexOf(item);
-      if (sumWeight + this.weights[position] <= this.maxWeight) {
+      while(sumWeight + this.weights[position] <= this.maxWeight) {
         sumWeight += this.weights[position];
         this.maxValue += this.values[position];
       }
     });
-    console.log(`max:${this.maxWeight} actual:${sumWeight}`);
     return this.maxValue;
   }
 }

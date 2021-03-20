@@ -1,5 +1,4 @@
 import {
-  Box,
   Center,
   Flex,
   VStack,
@@ -26,6 +25,27 @@ function App() {
   const [ball1, setBall1] = useState(0);
   const [ball2, setBall2] = useState(0);
   const [ball3, setBall3] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [userScore, setUserScore] = useState(0);
+  const [endGame, setEndGame] = useState(false);
+  const [userWon, setUserWon] = useState(false);
+  const getFinalText = ()=> {
+
+      return userWon? 
+    <Text fontWeight="bold" fontSize="5xl" align="center" color="green.500" backgroundColor="white" padding="0.5rem" borderRadius="1rem">
+      Parabéns, você ganhou!!
+    </Text>:
+    <>
+    
+    <Text fontWeight="bold" fontSize="5xl" align="center" color="red.500" backgroundColor="white" padding="0.5rem" borderRadius="1rem">
+      Que pena, você perdeu<br/>
+    </Text>
+    <Text fontWeight="semibold" fontSize="3xl" align="center">
+      Você deveria fazer {knapsack.maxValue} pontos mas fez {userScore}
+    </Text>
+    </>
+              
+  }
 
   return (
     <>
@@ -34,12 +54,6 @@ function App() {
           <VStack mt="10%" spacing={10}>
             <VStack>
               <img src={cannon} />
-              <HStack>
-                <Text fontWeight="bold" fontSize="xl">
-                  Peso Máximo Suportado:
-                </Text>
-                <Text fontSize="xl">{knapsack.maxWeight*10}</Text>
-              </HStack>
               <HStack spacing={6}>
                 <Text fontWeight="bold" fontSize="xl">
                   Força
@@ -64,22 +78,34 @@ function App() {
                   </Center>
                 </VStack>
                 <VStack>
-                  <ChooseQuantity value={ball1} setValue={setBall1} />
-                  <ChooseQuantity value={ball2} setValue={setBall2} />
-                  <ChooseQuantity value={ball3} setValue={setBall3} />
+                  <ChooseQuantity value={ball1} setValue={setBall1} total={total} setTotal={setTotal} weight={knapsack.weights[0]} max={knapsack.maxWeight}/>
+                  <ChooseQuantity value={ball2} setValue={setBall2} total={total} setTotal={setTotal} weight={knapsack.weights[1]} max={knapsack.maxWeight}/>
+                  <ChooseQuantity value={ball3} setValue={setBall3} total={total} setTotal={setTotal} weight={knapsack.weights[2]} max={knapsack.maxWeight}/>
                 </VStack>
                 <VStack>
                   <Center pr="20px" h="40px" w="50px">
-                    <Text>{knapsack.weights[0]*10}Kg</Text>
+                    <Text>{knapsack.weights[0]}Kg</Text>
                   </Center>
                   <Center pr="20px" h="40px" w="50px">
-                    <Text>{knapsack.weights[1]*10}Kg</Text>
+                    <Text>{knapsack.weights[1]}Kg</Text>
                   </Center>
                   <Center pr="20px" h="40px" w="50px">
-                    <Text>{knapsack.weights[2]*10}Kg</Text>
+                    <Text>{knapsack.weights[2]}Kg</Text>
                   </Center>
                 </VStack>
               </SimpleGrid>
+              <HStack>
+                <Text fontWeight="bold" fontSize="xl">
+                  Peso Máximo Suportado:
+                </Text>
+                <Text fontSize="xl">{knapsack.maxWeight}</Text>
+              </HStack>
+              <HStack>
+                <Text fontWeight="bold" fontSize="xl">
+                  Peso atual:
+                </Text>
+                <Text fontSize="xl">{total}</Text>
+              </HStack>
             </VStack>
             <HStack>
               <Button
@@ -88,7 +114,16 @@ function App() {
                 disabled={start}
                 onClick={() => {
                   setStart(true);
-                  console.log(knapsack.getAnswer());
+                  setEndGame(true);
+                  setUserWon(
+                    knapsack.values[0]*ball1 + 
+                    knapsack.values[1]*ball2 + 
+                    knapsack.values[2]*ball3 == 
+                    knapsack.getAnswer()
+                  );
+                  setUserScore(knapsack.values[0]*ball1 + 
+                    knapsack.values[1]*ball2 + 
+                    knapsack.values[2]*ball3);
                 }}
                 borderRadius="20px"
                 size="lg"
@@ -106,19 +141,23 @@ function App() {
               </Button>
             </HStack>
           </VStack>
-          <Center
+          <VStack
             d="flex"
-            flexDirection="row-reverse"
             flex="1"
-            height="70vh"
-            margin="1rem"
+            margin="2rem"
             bgGradient="linear(to-t, blue.500,green.300,)"
             borderRadius="10px"
+            padding="1rem"
           >
-            <img src={ship3} height="20%" width="20%" />
-            <img src={ship2} height="30%" width="30%" />
-            <img src={ship1} height="40%" width="40%" />
+          {endGame?
+          getFinalText(): null
+          }
+          <Center flexDirection="row-reverse">
+            <img src={endGame && userWon? ship3Wrecked : ship3} height="20%" width="20%" />
+            <img src={endGame && userWon? ship2Wrecked : ship2} height="30%" width="30%" />
+            <img src={endGame && userWon? ship1Wrecked : ship1} height="40%" width="40%" />
           </Center>
+          </VStack>
         </HStack>
       </Flex>
     </>
