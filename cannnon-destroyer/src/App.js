@@ -19,11 +19,13 @@ import ship2Wrecked from "./assets/ship2Wrecked.png";
 import ship3Wrecked from "./assets/ship3Wrecked.png";
 import { useState } from "react";
 
+const knapsack = new Knapsack();
+
 function App() {
-  const knapsack = new Knapsack();
-  const [ball1, setBall1] = useState(5);
-  const [ball2, setBall2] = useState(5);
-  const [ball3, setBall3] = useState(5);
+  const [start, setStart] = useState(false);
+  const [ball1, setBall1] = useState(0);
+  const [ball2, setBall2] = useState(0);
+  const [ball3, setBall3] = useState(0);
 
   return (
     <>
@@ -32,6 +34,12 @@ function App() {
           <VStack mt="10%" spacing={10}>
             <VStack>
               <img src={cannon} />
+              <HStack>
+                <Text fontWeight="bold" fontSize="xl">
+                  Peso Máximo Suportado:
+                </Text>
+                <Text fontSize="xl">{knapsack.maxWeight*10}</Text>
+              </HStack>
               <HStack spacing={6}>
                 <Text fontWeight="bold" fontSize="xl">
                   Força
@@ -46,13 +54,13 @@ function App() {
               <SimpleGrid columns={3}>
                 <VStack>
                   <Center pl="30px" h="40px" w="50px">
-                    <Text>50</Text>
+                    <Text>{knapsack.values[0]}</Text>
                   </Center>
                   <Center pl="30px" h="40px" w="50px">
-                    <Text>50</Text>
+                    <Text>{knapsack.values[1]}</Text>
                   </Center>
                   <Center pl="30px" h="40px" w="50px">
-                    <Text>50</Text>
+                    <Text>{knapsack.values[2]}</Text>
                   </Center>
                 </VStack>
                 <VStack>
@@ -62,13 +70,13 @@ function App() {
                 </VStack>
                 <VStack>
                   <Center pr="20px" h="40px" w="50px">
-                    <Text>50</Text>
+                    <Text>{knapsack.weights[0]*10}Kg</Text>
                   </Center>
                   <Center pr="20px" h="40px" w="50px">
-                    <Text>50</Text>
+                    <Text>{knapsack.weights[1]*10}Kg</Text>
                   </Center>
                   <Center pr="20px" h="40px" w="50px">
-                    <Text>50</Text>
+                    <Text>{knapsack.weights[2]*10}Kg</Text>
                   </Center>
                 </VStack>
               </SimpleGrid>
@@ -77,7 +85,11 @@ function App() {
               <Button
                 bg="green.500"
                 color="white"
-                onClick={() => console.log(knapsack.getAnswer())}
+                disabled={start}
+                onClick={() => {
+                  setStart(true);
+                  console.log(knapsack.getAnswer());
+                }}
                 borderRadius="20px"
                 size="lg"
               >
@@ -86,7 +98,7 @@ function App() {
               <Button
                 bg="red.500"
                 color="white"
-                onClick={() => console.log(knapsack.getAnswer())}
+                onClick={() => window.location.reload()}
                 borderRadius="20px"
                 size="lg"
               >
