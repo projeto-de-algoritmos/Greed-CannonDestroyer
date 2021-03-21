@@ -1,45 +1,40 @@
-**!! Atenção: Renomeie o seu repositório para (Tema)_(NomeDoProjeto). !!** 
+# Greed-CannonDestroyer
 
-Temas:
- - Grafos1
- - Grafos2
- - PD
- - D&C
- - Greed
- - Final 
- 
- **!! *Não coloque os nomes dos alunos no título do repositório*. Exemplo de título correto: Grafos2_Labirinto-do-Minotauro !!**
- 
- (Apague essa seção)
+# Cannon Destroyer
 
-# NomedoProjeto
-
-**Número da Lista**: X<br>
-**Conteúdo da Disciplina**: XXXXXXXXXX<br>
+**Número da Lista**: 3<br>
+**Conteúdo da Disciplina**: Greed (Knapsack)<br>
 
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| 17/0139981 |  Danillo Gonçalves de Souza |
+| 17/0013910 |  Joao Pedro Jose Santos da Silva Guedes |
 
 ## Sobre 
-Descreva os objetivos do seu projeto e como ele funciona. 
+O objetivo do projeto é a aplicação dos conteúdos da disciplina Projeto de Algoritmos em um contexto real. O contexto selecionado pela dupla foi a criação de um jogo onde o jogador deve derrubar os navios piratas com a maior força possível sem ultrapassar o peso limite. Por trás deste jogo estão sendo aplicados conceitos de **Knapsack**.
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+
+<img src="./screenshoots/screen1.png">
+<img src="./screenshoots/screen2.png">
+<img src="./screenshoots/screen3.png">
 
 ## Instalação 
-**Linguagem**: xxxxxx<br>
-**Framework**: (caso exista)<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
+**Linguagem**: Javascript<br>
+**Framework**: ReactJS<br>
+Para rodar o projeto você precisará instalar na sua máquina:
+- [Node.js](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/)
+
+Para rodar o projeto basta executar os seguintes comandos dentro da pasta cannon-destroyer
+
+**Utilizando yarn**
+```
+yarn
+yarn start
+```
+
 
 ## Uso 
-Explique como usar seu projeto caso haja algum passo a passo após o comando de execução.
-
-## Outros 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
-
-
-
-
+Após executar automaticamente ele abrirá uma aba no seu navegador com o projeto rodando, caso isto não aconteça basta acessar seu localhost com a porta indicada no terminal ao executar os comandos.
